@@ -1,1 +1,29 @@
-<p>novenyek works!</p>
+<!-- {{novenyek|json}} -->
+<div class="form-floating mb-3">
+    <input [(ngModel)]="phrase" type="text" class="form-control" id="kereso">
+    <label for="kereso">Keresés: </label>
+</div>
+
+
+<div class="row g-4">
+
+    <div *ngFor="let noveny of novenyek|filter:phrase" class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <div class="card h-100">
+        <img [src]="noveny.kepUrl" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{noveny.megnevezes}}</h5>
+          <p class="card-text">{{noveny.leiras}}</p>
+        </div>
+        <div class="card-footer">
+            <h5 class="card-title">{{noveny.ar}} Ft</h5>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Db </span>
+                <input value="1" min="1" #db type="number" class="form-control">
+                <button (click)="addTetel(noveny.key,db.value)" type="button" class="ms-2 btn btn-primary">Megrendel</button>
+           </div>
+            
+        </div>
+      </div>
+    </div>
+   
+</div>

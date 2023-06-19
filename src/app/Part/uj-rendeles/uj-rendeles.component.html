@@ -1,1 +1,41 @@
-<p>uj-rendeles works!</p>
+<div class="card" >
+   {{megrendeles|json}}
+    <div class="card-body">
+        <h5 class="card-title">Rendelés véglegesítése</h5>
+        
+
+            <div class="form-floating mb-3">
+                <input [(ngModel)]="megrendeles.nev" type="text" class="form-control" id="nev">
+                <label for="nev">Név</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input [(ngModel)]="megrendeles.cim" type="text" class="form-control" id="cim">
+                <label for="cim">Cím</label>
+            </div>
+            <!-- {{tetelek}} -->
+            <div *ngIf="novenyek">
+                <div *ngFor="let tetel of tetelek" class="row my-2">
+                    <div class="col">
+                        {{novenyek[keres(tetel.novenyKey)].megnevezes}}
+                    </div>
+                    <div class="col">
+                        <input min="1" [(ngModel)]="tetel.db" type="number" class="form-control">
+                        <!-- {{tetel.db}} -->
+                    </div>
+                    <div class="col">
+                        {{novenyek[keres(tetel.novenyKey)].ar*tetel.db}}
+                    </div>
+                    <div class="col">
+                        <button (click)="delete(tetel)" type="button" class="ms-2 btn btn-primary">Töröl</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="novenyek && tetelek">
+                Összesen: {{fizetendo()}} Ft
+            </div>
+            {{megrendeles.rendeles|json}}
+            {{megrendeles.nev?.length}}
+            <!-- {{megrendeles.rendeles.length}} -->
+            <button [disabled]="!(tetelek && tetelek.length>0) || !(megrendeles.nev && megrendeles.nev.length>0) || !(megrendeles.cim && megrendeles.cim.length>0)" (click)="megrendel()" type="button" class="ms-2 btn btn-primary">Megrendel</button>
+    </div>
+  </div>
